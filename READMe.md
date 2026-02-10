@@ -1,18 +1,18 @@
-# ❤️ Heart Attack Prediction Using Logistic Regression
+# ❤️ Heart Attack Prediction Using Logistic Regression and Gaussian Naive Bayes
 
 ## 📌 Project Overview
-This project predicts the **possibility of a heart attack** using a **Logistic Regression** classification model.  
+This project predicts the **possibility of a heart attack** using classification models **Logistic Regression** and **Naive Bayes**.  
 It uses patient health data from the **Cleveland Heart Disease dataset** to classify whether a person has a **lower or higher risk of heart attack**.
 
 The project focuses on:
 - Data loading and preprocessing
-- Training a Logistic Regression model
-- Evaluating performance using **Accuracy** and **Precision**
+- Training multiple classification models
+- Evaluating performance using **Accuracy**, **Precision** and **Recall**
 
 ---
 
 ## 🎯 Objective
-To build a machine learning model that can:
+To build and compare machine learning models that can:
 - Analyze medical attributes of patients
 - Predict heart attack possibility (`0` or `1`)
 - Provide a simple and interpretable healthcare prediction system
@@ -57,7 +57,7 @@ The model is trained using the following medical attributes:
 
 ---
 
-## 🧠 Machine Learning Algorithm
+## 🧠 Machine Learning Models Used
 ### Logistic Regression
 - Used for **binary classification**
 - Outputs class predictions (`0` or `1`)
@@ -67,6 +67,16 @@ The model is trained using the following medical attributes:
 model = LogisticRegression(max_iter=1300)
 model.fit(X_train, y_train)
 ```
+
+### Gaussian Naive Bayes
+- Based on **Bayes Theorem**
+- Assumes features follow a **Gaussian distribution**
+- Fast and effective for probabilistic classification
+
+```python
+gnb_model = GaussianNB()
+gnb_model.fit(X_train, y_train)
+```
 ---
 
 ## 🔄 Workflow
@@ -74,18 +84,24 @@ model.fit(X_train, y_train)
 - Load dataset using Pandas
 - Separate features (X) and target (y)
 - Split data into training and testing sets (80% / 20%)
-- Train Logistic Regression model
+- Train Logistic Regression and Gaussian Naive Bayes models
 - Make predictions on test data
-- Evaluate model performance
+- Evaluate and compare model performance
 
 ---
 ## 📈 Model Evaluation
 
-The model is evaluated using Accuracy and Precision metrics.
+The model is evaluated using Accuracy, Precision and Recall metrics.
 
 ```python
 print("accuracy: ", accuracy_score(y_test, y_pred) * 100, "%")
 print("precision: ", precision_score(y_test, y_pred) * 100, "%")
+```
+
+```python
+print("recall score: ", recall_score(y_test, y_pred))
+print("precision: ", precision_score(y_test, y_pred))
+print("accuracy_score: ", accuracy_score(y_test, y_pred))
 ```
 
 ### 🔹 Metrics Explained
@@ -95,13 +111,41 @@ Accuracy: Measures overall correctness of predictions
 Precision: Measures how many predicted positive cases are actually positive
 (important in medical diagnosis)
 
+Recall: Proportion of actual positive cases correctly identified
+📌 Recall is especially important in healthcare to minimize false negatives.
+
 ---
-## ✅ Results
+## ✅ Results and Comparison
 
-The Logistic Regression model successfully predicts heart attack possibility.
+Both Logistic Regression and Gaussian Naive Bayes models were evaluated on the test dataset using standard classification metrics.
 
-The model achieves good accuracy and precision on unseen test data.
+🔹 Logistic Regression Performance
 
-Suitable as a baseline healthcare classification model.
+Accuracy: 0.8525
+Precision: 0.8710
+Recall: 0.8438
+
+🔹 Gaussian Naive Bayes Performance
+
+Accuracy: 0.8689
+Precision: 0.9000
+Recall: 0.8438
+
+### 📈 Model Comparison Summary
+| Metric    | Logistic Regression | Gaussian Naive Bayes |
+| --------- | ------------------- | -------------------- |
+| Accuracy  | 0.8525              | **0.8689**           |
+| Precision | 0.8710              | **0.9000**           |
+| Recall    | **0.8438**          | **0.8438**           |
+
+### Interpretation of Results
+
+- Gaussian Naive Bayes achieves higher accuracy and precision, indicating fewer false positive predictions.
+
+- Both models show identical recall, meaning they are equally effective at identifying actual heart attack cases.
+
+- Logistic Regression offers better interpretability, while Gaussian Naive Bayes provides slightly better predictive performance.
+
+📌 Overall, Gaussian Naive Bayes performs marginally better on this dataset, while Logistic Regression remains a strong and interpretable baseline.
 
 ---
